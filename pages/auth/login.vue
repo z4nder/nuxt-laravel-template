@@ -1,6 +1,9 @@
 <template>
   <NuxtLayout :name="layout">
     <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+      <div class="flex justify-center text-center items-center text-red-500">
+        {{ errors?.general }}
+      </div>
       <form class="space-y-6" @submit.prevent="submit">
         <v-input
           id="email"
@@ -58,10 +61,19 @@
 </template>
 
 <script setup lang="ts">
+import { reactive } from "vue";
+const { login, errors } = useAuth();
+const router = useRouter();
+
+definePageMeta({ middleware: ["guest"] });
 const layout = "guest";
+
 const form = reactive({
   email: "",
   password: "",
 });
-const submit = async () => {};
+
+const submit = async () => {
+  await login(form);
+};
 </script>

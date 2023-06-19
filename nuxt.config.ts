@@ -2,9 +2,12 @@
 export default defineNuxtConfig({
   modules: ["@nuxtjs/tailwindcss"],
   runtimeConfig: {
-    apiSecret: "my-app-secutiry-api-key",
     public: {
-      apiBase: "localhost:8000/api",
+      backendUrl: "http://localhost:8000/api",
+      frontendUrl: "http://localhost:3000",
     },
+  },
+  imports: {
+    dirs: ["./utils"],
   },
 });

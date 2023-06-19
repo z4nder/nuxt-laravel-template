@@ -104,7 +104,7 @@
                       </div>
                     </div>
                     <div class="pt-2">
-                      <v-button> Sair </v-button>
+                      <v-button @click="logout"> Sair </v-button>
                     </div>
                   </div>
                 </a>
@@ -167,7 +167,7 @@
                 </button>
               </div>
               <div>
-                <v-button> Sair </v-button>
+                <v-button @click="logout"> Sair </v-button>
               </div>
             </div>
           </a>
@@ -237,4 +237,5 @@ const navigation = [
   },
 ];
 const sidebarOpen = ref(false);
+const { logout } = useAuth();
 </script>
