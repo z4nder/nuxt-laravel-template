@@ -52,8 +52,8 @@
           </div>
           <div class="relative flex justify-center text-sm">
             <span class="px-2 bg-white text-gray-500">
-              Ainda não possui uma conta ?
-              <v-a href="/auth/register">Cria uma conta</v-a>
+              Já possui uma conta ?
+              <v-a href="/auth/register">Registrar-se</v-a>
             </span>
           </div>
         </div>
