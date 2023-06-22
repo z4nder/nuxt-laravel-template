@@ -53,7 +53,12 @@
               </TransitionChild>
               <div class="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
                 <div class="flex-shrink-0 flex items-center px-4">
-                  <v-logo />
+                  <div>
+                    <v-logo />
+                  </div>
+                  <h2 class="text-xl font-bold tracking-tight text-gray-50">
+                    Hive Community
+                  </h2>
                 </div>
                 <nav class="mt-5 px-2 space-y-1">
                   <a
@@ -101,6 +106,12 @@
                         >
                           View profile
                         </button>
+                        <button @click="logout">
+                          <XCircleIcon
+                            class="h-6 w-6 text-red-500"
+                            aria-hidden="true"
+                          />
+                        </button>
                       </div>
                     </div>
                     <div class="pt-2">
@@ -117,10 +128,17 @@
     </TransitionRoot>
 
     <div class="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0">
-      <div class="flex-1 flex flex-col min-h-0 bg-primary-100">
+      <div class="flex-1 flex flex-col min-h-0 bg-gray-50">
         <div class="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
-          <div class="flex items-center flex-shrink-0 px-4">
-            <v-logo />
+          <div
+            class="flex items-center flex-shrink-0 px-4 border-b-2 border-gray-200 mx-4"
+          >
+            <div>
+              <v-logo />
+            </div>
+            <h2 class="text-md font-bold tracking-tight text-primary-800">
+              Hive Community
+            </h2>
           </div>
           <nav class="mt-5 flex-1 px-2 space-y-1">
             <a
@@ -129,47 +147,46 @@
               :href="item.href"
               :class="[
                 item.current
-                  ? 'bg-primary-700 text-white hover:bg-primary-900'
-                  : 'text-primary-300 hover:bg-primary-700 hover:text-white',
+                  ? 'bg-gray-100 text-black hover:bg-gray-200 border border-primary-200'
+                  : 'bg-gray-50 text-black hover:bg-gray-100',
                 'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
               ]"
             >
               <component
                 :is="item.icon"
-                :class="[
-                  item.current
-                    ? 'text-primary-300'
-                    : 'text-primary-400 group-hover:text-primary-300',
-                  'mr-3 flex-shrink-0 h-6 w-6',
-                ]"
+                :class="'text-primary-500 group-hover:text-primary-300 mr-3 flex-shrink-0 h-6 w-6'"
                 aria-hidden="true"
               />
               {{ item.name }}
             </a>
           </nav>
         </div>
-        <div class="flex-shrink-0 flex bg-primary-800 p-4">
+        <div class="flex-shrink-0 flex bg-primary-900 p-4">
           <a href="#" class="flex-shrink-0 w-full group block">
             <div class="flex flex-row justify-between">
-              <div>
+              <div class="flex flex-row justify-left">
                 <img
                   class="inline-block h-9 w-9 rounded-full"
                   src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                   alt=""
                 />
+                <div class="ml-3">
+                  <p class="text-sm font-medium text-white">
+                    {{ userStore.user.name }}
+                  </p>
+                  <button
+                    class="text-xs font-medium text-gray-300 group-hover:text-gray-200"
+                  >
+                    View profile
+                  </button>
+                </div>
               </div>
-              <div class="ml-3">
-                <p class="text-sm font-medium text-white">
-                  {{ userStore.user.name }}
-                </p>
-                <button
-                  class="text-xs font-medium text-gray-300 group-hover:text-gray-200"
-                >
-                  View profile
-                </button>
-              </div>
-              <div>
-                <v-button @click="logout"> Sair </v-button>
+
+              <div
+                class="flex flex-row justify-center items-center"
+                @click="logout"
+              >
+                <XCircleIcon class="h-8 w-8 text-gray-50" aria-hidden="true" />
               </div>
             </div>
           </a>
@@ -216,6 +233,7 @@ import {
   WalletIcon,
   Bars4Icon,
   XMarkIcon,
+  XCircleIcon,
 } from "@heroicons/vue/24/outline";
 import { useUserStore } from "~/store/useUserStore";
 
@@ -230,13 +248,13 @@ const navigation = [
     name: "Spend",
     href: "/spends",
     icon: WalletIcon,
-    current: true,
+    current: false,
   },
   {
     name: "Tag",
     href: "/tags",
-    icon: WalletIcon,
-    current: true,
+    icon: ChartPieIcon,
+    current: false,
   },
 ];
 const sidebarOpen = ref(false);

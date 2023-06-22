@@ -53,7 +53,7 @@
           <div class="relative flex justify-center text-sm">
             <span class="px-2 bg-white text-gray-500">
               Já possui uma conta ?
-              <v-a href="/auth/register">Registrar-se</v-a>
+              <v-a href="/auth/login">Entrar</v-a>
             </span>
           </div>
         </div>

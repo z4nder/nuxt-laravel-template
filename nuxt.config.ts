@@ -13,4 +13,15 @@ export default defineNuxtConfig({
   pinia: {
     autoImports: [["defineStore", "definePiniaStore"]],
   },
+  app: {
+    head: {
+      link: [
+        { rel: "icon", type: "image/x-icon", href: "/img/icon.png" },
+        {
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/css2?family=DM+Sans&family=Nunito:wght@200;400;600&display=swap",
+        },
+      ],
+    },
+  },
 });

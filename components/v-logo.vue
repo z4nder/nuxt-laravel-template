@@ -1,6 +1,6 @@
 <template>
   <img
-    class="rounded-full mx-auto w-auto h-28"
+    class="rounded-full mx-auto w-auto h-16"
     src="~/assets/img/icon.png"
     alt="Logo"
   />
