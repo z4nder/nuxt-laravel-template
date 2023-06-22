@@ -1,7 +1,4 @@
-type User = {
-  name: string;
-  email?: string;
-};
+import { useUserStore } from "~/store/useUserStore";
 
 type LoginPayload = {
   email: string;
@@ -23,6 +20,7 @@ type AccessToken = {
 export const useAuth = () => {
   const router = useRouter();
   const errors = ref({});
+  const store = useUserStore();
 
   async function login(payload: LoginPayload) {
     try {
@@ -56,6 +54,7 @@ export const useAuth = () => {
 
       await router.push("/dashboard");
     } catch (error: any) {
+      console.log("ERROR: ", error);
       if (error.response?.status === 422) {
         errors.value = errorFormat(error.response._data.errors);
       } else if (error.response.status === 401) {
@@ -70,6 +69,7 @@ export const useAuth = () => {
         method: "POST",
       });
 
+      store.logout();
       authCookie.deleteToken();
       await router.push("/auth/login");
     } catch (e) {

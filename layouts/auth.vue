@@ -94,7 +94,7 @@
                       </div>
                       <div class="ml-3">
                         <p class="text-base font-medium text-white">
-                          User Name
+                          {{ userStore.user.name }}
                         </p>
                         <button
                           class="text-sm font-medium text-gray-400 group-hover:text-gray-300"
@@ -159,7 +159,9 @@
                 />
               </div>
               <div class="ml-3">
-                <p class="text-sm font-medium text-white">User name</p>
+                <p class="text-sm font-medium text-white">
+                  {{ userStore.user.name }}
+                </p>
                 <button
                   class="text-xs font-medium text-gray-300 group-hover:text-gray-200"
                 >
@@ -202,7 +204,7 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import {
   Dialog,
   DialogPanel,
@@ -215,6 +217,7 @@ import {
   Bars4Icon,
   XMarkIcon,
 } from "@heroicons/vue/24/outline";
+import { useUserStore } from "~/store/useUserStore";
 
 const navigation = [
   {
@@ -238,4 +241,5 @@ const navigation = [
 ];
 const sidebarOpen = ref(false);
 const { logout } = useAuth();
+const userStore = useUserStore();
 </script>

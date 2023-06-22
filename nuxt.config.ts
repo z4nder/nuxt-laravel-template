@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: ["@nuxtjs/tailwindcss"],
+  modules: ["@nuxtjs/tailwindcss", "@pinia/nuxt"],
   runtimeConfig: {
     public: {
       backendUrl: "http://localhost:8000/api",
@@ -9,5 +9,8 @@ export default defineNuxtConfig({
   },
   imports: {
     dirs: ["./utils"],
+  },
+  pinia: {
+    autoImports: [["defineStore", "definePiniaStore"]],
   },
 });

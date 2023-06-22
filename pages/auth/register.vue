@@ -41,24 +41,8 @@
           label="Confirmar Senha"
           type="password"
         />
-        <div class="flex items-center justify-between">
-          <div class="flex items-center">
-            <input
-              id="remember-me"
-              name="remember-me"
-              type="checkbox"
-              class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
-            />
-            <label for="remember-me" class="ml-2 block text-sm text-gray-900">
-              Lembrar</label
-            >
-          </div>
-          <div class="text-sm">
-            <v-a> Esqueceu sua senha? </v-a>
-          </div>
-        </div>
         <div>
-          <v-button type="submit">Entrar</v-button>
+          <v-button type="submit">Registrar</v-button>
         </div>
       </form>
       <div class="mt-6">
