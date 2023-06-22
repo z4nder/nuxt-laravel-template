@@ -8,6 +8,13 @@ type LoginPayload = {
   password: string;
 };
 
+type RegisterPayload = {
+  name: string;
+  email: string;
+  password: string;
+  password_confirmation: string;
+};
+
 type AccessToken = {
   access_token: string;
   token_type: string;
@@ -37,7 +44,25 @@ export const useAuth = () => {
     }
   }
 
-  async function register() {}
+  async function register(payload: RegisterPayload) {
+    try {
+      errors.value = {};
+      const response = await myApiFetch<AccessToken>("/register", {
+        method: "POST",
+        body: payload,
+      });
+
+      authCookie.setToken(response.access_token);
+
+      await router.push("/dashboard");
+    } catch (error: any) {
+      if (error.response?.status === 422) {
+        errors.value = errorFormat(error.response._data.errors);
+      } else if (error.response.status === 401) {
+        errors.value = { general: error.response._data.message };
+      }
+    }
+  }
 
   async function logout() {
     try {

@@ -6,6 +6,15 @@
       </div>
       <form class="space-y-6" @submit.prevent="submit">
         <v-input
+          id="name"
+          v-model="form.name"
+          :value="form.name"
+          :error="errors?.name"
+          class="mt-10"
+          label="Nome"
+          type="text"
+        />
+        <v-input
           id="email"
           v-model="form.email"
           :value="form.email"
@@ -21,6 +30,15 @@
           :error="errors?.password"
           class="mt-10"
           label="Senha"
+          type="password"
+        />
+        <v-input
+          id="password"
+          v-model="form.password_confirmation"
+          :value="form.password_confirmation"
+          :error="errors?.password_confirmation"
+          class="mt-10"
+          label="Confirmar Senha"
           type="password"
         />
         <div class="flex items-center justify-between">
@@ -62,17 +80,19 @@
 
 <script setup lang="ts">
 import { reactive } from "vue";
-const { login, errors } = useAuth();
+const { register, errors } = useAuth();
 
 definePageMeta({ middleware: ["guest"] });
 const layout = "guest";
 
 const form = reactive({
+  name: "",
   email: "",
   password: "",
+  password_confirmation: "",
 });
 
 const submit = async () => {
-  await login(form);
+  await register(form);
 };
 </script>
