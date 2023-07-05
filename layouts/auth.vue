@@ -188,7 +188,7 @@
     </div>
     <div class="md:pl-64 flex flex-col flex-1">
       <div
-        class="sticky top-0 z-10 md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3 bg-primary-700"
+        class="sticky top-0 z-10 md:hidden pl-1 pt-1 sm:pl-3 sm:pt-3 bg-primary-900"
       >
         <button
           type="button"
@@ -227,6 +227,7 @@ import {
   Bars4Icon,
   XMarkIcon,
   XCircleIcon,
+  UserCircleIcon,
 } from "@heroicons/vue/24/outline";
 
 import { useUserStore } from "~/store/useUserStore";
@@ -236,6 +237,11 @@ const navigation = [
     name: "Dashboard",
     href: "/dashboard",
     icon: ChartPieIcon,
+  },
+  {
+    name: "Users",
+    href: "/users",
+    icon: UserCircleIcon,
   },
   {
     name: "Spend",
