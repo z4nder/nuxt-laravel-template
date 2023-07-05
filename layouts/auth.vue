@@ -29,7 +29,7 @@
             leave-to="-translate-x-full"
           >
             <DialogPanel
-              class="relative flex-1 flex flex-col max-w-xs w-full bg-primary-700"
+              class="relative flex-1 flex flex-col max-w-xs w-full bg-gray-50"
             >
               <TransitionChild
                 as="template"
@@ -52,11 +52,13 @@
                 </div>
               </TransitionChild>
               <div class="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
-                <div class="flex-shrink-0 flex items-center px-4">
+                <div
+                  class="flex-shrink-0 flex items-center px-4 border-b-2 border-gray-200 mx-4"
+                >
                   <div>
                     <v-logo />
                   </div>
-                  <h2 class="text-xl font-bold tracking-tight text-gray-50">
+                  <h2 class="text-xl font-bold tracking-tight text-primary-800">
                     Hive Community
                   </h2>
                 </div>
@@ -67,8 +69,8 @@
                     :href="item.href"
                     :class="[
                       item.current
-                        ? 'bg-primary-900 text-white'
-                        : 'text-primary-300 hover:bg-primary-700 hover:text-white',
+                        ? 'bg-gray-100 text-black hover:bg-gray-200 border border-primary-200'
+                        : 'bg-gray-50 text-black hover:bg-gray-100',
                       'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
                     ]"
                   >
@@ -86,10 +88,10 @@
                   </a>
                 </nav>
               </div>
-              <div class="flex-shrink-0 flex bg-primary-800 p-4">
-                <a href="#" class="flex-shrink-0 group block">
-                  <div class="flex flex-col">
-                    <div class="flex">
+              <div class="flex-shrink-0 flex bg-primary-900 p-4">
+                <a href="#" class="flex-shrink-0 w-full group block">
+                  <div class="flex flex-row justify-between">
+                    <div class="flex flex-row justify-left">
                       <div>
                         <img
                           class="inline-block h-10 w-10 rounded-full"
@@ -98,24 +100,24 @@
                         />
                       </div>
                       <div class="ml-3">
-                        <p class="text-base font-medium text-white">
+                        <p class="text-sm font-medium text-white">
                           {{ userStore.user.name }}
                         </p>
                         <button
-                          class="text-sm font-medium text-gray-400 group-hover:text-gray-300"
+                          class="text-xs font-medium text-gray-300 group-hover:text-gray-200"
                         >
                           View profile
                         </button>
-                        <button @click="logout">
-                          <XCircleIcon
-                            class="h-6 w-6 text-red-500"
-                            aria-hidden="true"
-                          />
-                        </button>
                       </div>
                     </div>
-                    <div class="pt-2">
-                      <v-button @click="logout"> Sair </v-button>
+                    <div
+                      class="flex flex-row justify-center items-center"
+                      @click="logout"
+                    >
+                      <XCircleIcon
+                        class="h-8 w-8 text-gray-50"
+                        aria-hidden="true"
+                      />
                     </div>
                   </div>
                 </a>
