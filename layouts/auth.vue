@@ -63,29 +63,22 @@
                   </h2>
                 </div>
                 <nav class="mt-5 px-2 space-y-1">
-                  <a
+                  <router-link
                     v-for="item in navigation"
-                    :key="item.name"
-                    :href="item.href"
-                    :class="[
-                      item.current
-                        ? 'bg-gray-100 text-black hover:bg-gray-200 border border-primary-200'
-                        : 'bg-gray-50 text-black hover:bg-gray-100',
-                      'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
-                    ]"
+                    :to="item.href"
+                    :class="{
+                      'bg-gray-100 text-black hover:bg-gray-200 border border-primary-200':
+                        isRouteActive(item.href),
+                    }"
+                    class="bg-gray-50 text-black hover:bg-gray-100 group flex items-center px-2 py-2 text-sm font-medium rounded-md"
                   >
                     <component
                       :is="item.icon"
-                      :class="[
-                        item.current
-                          ? 'text-primary-300'
-                          : 'text-primary-400 group-hover:text-primary-300',
-                        'mr-3 flex-shrink-0 h-6 w-6',
-                      ]"
+                      :class="'text-primary-500 group-hover:text-primary-300 mr-3 flex-shrink-0 h-6 w-6'"
                       aria-hidden="true"
                     />
                     {{ item.name }}
-                  </a>
+                  </router-link>
                 </nav>
               </div>
               <div class="flex-shrink-0 flex bg-primary-900 p-4">
@@ -143,16 +136,14 @@
             </h2>
           </div>
           <nav class="mt-5 flex-1 px-2 space-y-1">
-            <a
+            <router-link
               v-for="item in navigation"
-              :key="item.name"
-              :href="item.href"
-              :class="[
-                item.current
-                  ? 'bg-gray-100 text-black hover:bg-gray-200 border border-primary-200'
-                  : 'bg-gray-50 text-black hover:bg-gray-100',
-                'group flex items-center px-2 py-2 text-sm font-medium rounded-md',
-              ]"
+              :to="item.href"
+              :class="{
+                'bg-gray-100 text-black hover:bg-gray-200 border border-primary-200':
+                  isRouteActive(item.href),
+              }"
+              class="bg-gray-50 text-black hover:bg-gray-100 group flex items-center px-2 py-2 text-sm font-medium rounded-md"
             >
               <component
                 :is="item.icon"
@@ -160,7 +151,7 @@
                 aria-hidden="true"
               />
               {{ item.name }}
-            </a>
+            </router-link>
           </nav>
         </div>
         <div class="flex-shrink-0 flex bg-primary-900 p-4">
@@ -237,29 +228,32 @@ import {
   XMarkIcon,
   XCircleIcon,
 } from "@heroicons/vue/24/outline";
+
 import { useUserStore } from "~/store/useUserStore";
 
 const navigation = [
   {
     name: "Dashboard",
-    href: "/dashabord",
+    href: "/dashboard",
     icon: ChartPieIcon,
-    current: true,
   },
   {
     name: "Spend",
     href: "/spends",
     icon: WalletIcon,
-    current: false,
   },
   {
     name: "Tag",
     href: "/tags",
     icon: ChartPieIcon,
-    current: false,
   },
 ];
 const sidebarOpen = ref(false);
 const { logout } = useAuth();
 const userStore = useUserStore();
+const router = useRouter();
+
+const isRouteActive = (route) =>
+  router.currentRoute.value.path === route ||
+  router.currentRoute.value.path.startsWith(route + "/");
 </script>
