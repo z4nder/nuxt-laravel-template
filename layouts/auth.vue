@@ -65,6 +65,7 @@
                 <nav class="mt-5 px-2 space-y-1">
                   <router-link
                     v-for="item in navigation"
+                    :key="item.name"
                     :to="item.href"
                     :class="{
                       'bg-gray-100 text-black hover:bg-gray-200 border border-primary-200':
@@ -138,6 +139,7 @@
           <nav class="mt-5 flex-1 px-2 space-y-1">
             <router-link
               v-for="item in navigation"
+              :key="item.name"
               :to="item.href"
               :class="{
                 'bg-gray-100 text-black hover:bg-gray-200 border border-primary-200':
