@@ -1,6 +1,9 @@
 <template>
   <NuxtLayout :name="layout">
     <v-form @onSubmit="submit">
+      <div class="flex justify-center text-center items-center text-red-500">
+        {{ errors?.general }}
+      </div>
       <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
         <div class="sm:col-span-3">
           <v-input
@@ -37,10 +40,10 @@
         </div>
         <div class="sm:col-span-3">
           <v-input
-            id="confirm_password"
-            v-model="form.confirm_password"
-            :value="form.confirm_password"
-            :error="errors?.confirm_password"
+            id="password_confirmation"
+            v-model="form.password_confirmation"
+            :value="form.password_confirmation"
+            :error="errors?.password_confirmation"
             class="mt-10"
             label="Confirm password"
             type="password"

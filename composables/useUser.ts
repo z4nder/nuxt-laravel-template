@@ -11,10 +11,11 @@ type UserDto = {
   name: string;
   email: string;
   password: string;
-  confirm_password: string;
+  password_confirmation: string;
 };
 
 export const useUser = () => {
+  const router = useRouter();
   const users = ref<Array<User> | null>(null);
   const user = ref<User | null>(null);
   const errors = ref({});
@@ -22,7 +23,7 @@ export const useUser = () => {
     name: "",
     email: "",
     password: "",
-    confirm_password: "",
+    password_confirmation: "",
   });
 
   async function fetchUsers() {
@@ -40,11 +41,11 @@ export const useUser = () => {
 
   async function store(payload: UserDto) {
     try {
-      const response = await myApiFetch("/users", {
+      await myApiFetch("/users", {
         method: "POST",
         body: payload,
       });
-      console.log("RESPONSE: ", response);
+      await router.push("/users");
     } catch (error: any) {
       if (error.response?.status === 422) {
         errors.value = errorFormat(error.response._data.errors);
