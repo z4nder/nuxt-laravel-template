@@ -7,9 +7,23 @@ type User = {
   updated_at: string;
 };
 
+type UserDto = {
+  name: string;
+  email: string;
+  password: string;
+  confirm_password: string;
+};
+
 export const useUser = () => {
   const users = ref<Array<User> | null>(null);
   const user = ref<User | null>(null);
+  const errors = ref({});
+  const form = reactive<UserDto>({
+    name: "",
+    email: "",
+    password: "",
+    confirm_password: "",
+  });
 
   async function fetchUsers() {
     try {
@@ -24,11 +38,27 @@ export const useUser = () => {
 
   async function show() {}
 
-  async function store() {}
+  async function store(payload: UserDto) {
+    try {
+      const response = await myApiFetch("/users", {
+        method: "POST",
+        body: payload,
+      });
+      console.log("RESPONSE: ", response);
+    } catch (error: any) {
+      if (error.response?.status === 422) {
+        errors.value = errorFormat(error.response._data.errors);
+      } else if (error.response.status === 401) {
+        errors.value = { general: error.response._data.message };
+      }
+    }
+  }
 
   async function destory() {}
 
   return {
+    errors,
+    form,
     users,
     user,
     fetchUsers,

@@ -1,33 +1,62 @@
 <template>
   <NuxtLayout :name="layout">
-    <div class="px-4 sm:px-6 lg:px-8">
-      <div class="sm:flex sm:items-center">
-        <div class="sm:flex-auto">
-          <h1 class="text-base font-semibold leading-6 text-gray-900">Users</h1>
-          <p class="mt-2 text-sm text-gray-700">Create a new user.</p>
+    <v-form @onSubmit="submit">
+      <div class="grid max-w-2xl grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+        <div class="sm:col-span-3">
+          <v-input
+            id="name"
+            v-model="form.name"
+            :value="form.name"
+            :error="errors?.name"
+            class="mt-10"
+            label="Name"
+            type="text"
+          />
         </div>
-        <div class="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-          <router-link to="/users">
-            <v-button>Voltar</v-button>
-          </router-link>
+        <div class="sm:col-span-3">
+          <v-input
+            id="email"
+            v-model="form.email"
+            :value="form.email"
+            :error="errors?.email"
+            class="mt-10"
+            label="Email"
+            type="email"
+          />
+        </div>
+        <div class="sm:col-span-3">
+          <v-input
+            id="password"
+            v-model="form.password"
+            :value="form.password"
+            :error="errors?.password"
+            class="mt-10"
+            label="password"
+            type="password"
+          />
+        </div>
+        <div class="sm:col-span-3">
+          <v-input
+            id="confirm_password"
+            v-model="form.confirm_password"
+            :value="form.confirm_password"
+            :error="errors?.confirm_password"
+            class="mt-10"
+            label="Confirm password"
+            type="password"
+          />
         </div>
       </div>
-      <div class="mt-8 flow-root">
-        <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div
-            class="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8"
-          >
-            <div
-              class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg"
-            ></div>
-          </div>
-        </div>
-      </div>
-    </div>
+    </v-form>
   </NuxtLayout>
 </template>
 
 <script setup lang="ts">
 definePageMeta({ middleware: ["auth"] });
 const layout = "auth";
+const { form, store, errors } = useUser();
+
+const submit = async () => {
+  await store(form);
+};
 </script>
