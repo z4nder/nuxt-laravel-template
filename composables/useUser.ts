@@ -7,6 +7,18 @@ type User = {
   updated_at: string;
 };
 
+type Paginate<T> = {
+  current_page: number;
+  data: Array<T>;
+  from: number;
+  per_page: number;
+  to: number;
+
+  first_page_url: string;
+  next_page_url: string | null;
+  prev_page_url: string | null;
+};
+
 type UserDto = {
   name: string;
   email: string;
@@ -26,12 +38,13 @@ export const useUser = () => {
     password_confirmation: "",
   });
 
-  async function fetchUsers() {
+  async function fetchUsers(page = 1) {
     try {
-      const response = await myApiFetch<Array<User>>("/users", {
+      const response = await myApiFetch<Paginate<User>>(`/users?page=${page}`, {
         method: "GET",
       });
-      users.value = response;
+
+      users.value = response.data;
     } catch (error: any) {
       console.log("ERROR: ", error);
     }
