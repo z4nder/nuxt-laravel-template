@@ -1,6 +1,8 @@
 type User = {
   id: number;
   name: string;
+  email: string;
+  roles: Array<string>;
   created_at: string;
   updated_at: string;
 };
@@ -14,8 +16,7 @@ export const useUser = () => {
       const response = await myApiFetch<Array<User>>("/users", {
         method: "GET",
       });
-
-      console.log("RESPONSE: ", response);
+      users.value = response;
     } catch (error: any) {
       console.log("ERROR: ", error);
     }
