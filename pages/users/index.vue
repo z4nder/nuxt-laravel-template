@@ -20,7 +20,7 @@
           </router-link>
         </div>
       </div>
-      <v-table>
+      <v-table @onChangePage="changePage" :pagination="pagination">
         <template #thead>
           <tr>
             <v-th> ID </v-th>
@@ -76,14 +76,20 @@
 
 <script setup lang="ts">
 import { TrashIcon, PencilIcon } from "@heroicons/vue/24/outline";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/20/solid";
-definePageMeta({ middleware: ["auth"] });
-const layout = "auth";
-const { fetchUsers, users } = useUser();
 
-const page = ref<Number>(1);
+definePageMeta({ middleware: ["auth"] });
+
+const layout = "auth";
+const { fetchUsers, users, pagination } = useUser();
 
 onMounted(async () => {
   await fetchUsers();
 });
+
+const changePage = async (page: number) => {
+  if (page > pagination.value.lastPage || page < pagination.value.firstPage) {
+    return;
+  }
+  await fetchUsers(page);
+};
 </script>

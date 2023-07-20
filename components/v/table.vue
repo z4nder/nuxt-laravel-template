@@ -20,11 +20,13 @@
               <a
                 href="#"
                 class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                @click="emit('onChangePage', pagination.page - 1)"
                 >Previous</a
               >
               <a
                 href="#"
                 class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50"
+                @click="emit('onChangePage', pagination.page + 1)"
                 >Next</a
               >
             </div>
@@ -35,15 +37,15 @@
                 <p class="text-sm text-gray-700">
                   Showing
                   {{ " " }}
-                  <span class="font-medium">1</span>
+                  <span class="font-medium">{{ pagination.page }}</span>
                   {{ " " }}
                   to
                   {{ " " }}
-                  <span class="font-medium">10</span>
+                  <span class="font-medium">{{ pagination.to }}</span>
                   {{ " " }}
                   of
                   {{ " " }}
-                  <span class="font-medium">97</span>
+                  <span class="font-medium">{{ pagination.total }}</span>
                   {{ " " }}
                   results
                 </p>
@@ -56,6 +58,7 @@
                   <a
                     href="#"
                     class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+                    @click="emit('onChangePage', pagination.page - 1)"
                   >
                     <span class="sr-only">Previous</span>
                     <ChevronLeftIcon class="h-5 w-5" aria-hidden="true" />
@@ -99,6 +102,7 @@
                   <a
                     href="#"
                     class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0"
+                    @click="emit('onChangePage', pagination.page + 1)"
                   >
                     <span class="sr-only">Next</span>
                     <ChevronRightIcon class="h-5 w-5" aria-hidden="true" />
@@ -113,4 +117,30 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/20/solid";
+
+/**
+ * Renderizar range de paginas
+ * Marcar pagina atual com cor diferente
+ *
+ */
+type Pagination = {
+  page: number;
+  firstPage: number;
+  lastPage: number;
+  to: number;
+  total: number;
+};
+export interface Props {
+  pagination?: Pagination;
+}
+
+const props = withDefaults(defineProps<Props>(), {
+  pagination: () => ({
+    type: Object as PropType<Pagination>,
+    required: true,
+  }),
+});
+const emit = defineEmits(["onChangePage"]);
+</script>

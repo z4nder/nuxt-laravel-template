@@ -7,16 +7,28 @@ type User = {
   updated_at: string;
 };
 
+type Pagination = {
+  page: number;
+  firstPage: number;
+  lastPage: number;
+  to: number;
+  total: number;
+};
+
 type Paginate<T> = {
   current_page: number;
   data: Array<T>;
   from: number;
+  last_page: number;
   per_page: number;
   to: number;
-
+  total: number;
+  path: string;
+  links: Array<Object>;
   first_page_url: string;
   next_page_url: string | null;
   prev_page_url: string | null;
+  last_page_url: string | null;
 };
 
 type UserDto = {
@@ -31,6 +43,13 @@ export const useUser = () => {
   const users = ref<Array<User> | null>(null);
   const user = ref<User | null>(null);
   const errors = ref({});
+  const pagination = ref<Pagination>({
+    page: 1,
+    firstPage: 1,
+    lastPage: 1,
+    to: 1,
+    total: 1,
+  });
   const form = reactive<UserDto>({
     name: "",
     email: "",
@@ -43,8 +62,14 @@ export const useUser = () => {
       const response = await myApiFetch<Paginate<User>>(`/users?page=${page}`, {
         method: "GET",
       });
-
       users.value = response.data;
+      pagination.value = {
+        page: response.current_page,
+        firstPage: 1,
+        lastPage: response.last_page,
+        to: response.to,
+        total: response.total,
+      };
     } catch (error: any) {
       console.log("ERROR: ", error);
     }
@@ -71,6 +96,7 @@ export const useUser = () => {
   async function destory() {}
 
   return {
+    pagination,
     errors,
     form,
     users,
