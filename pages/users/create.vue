@@ -11,7 +11,6 @@
             v-model="form.name"
             :value="form.name"
             :error="errors?.name"
-            class="mt-10"
             label="Name"
             type="text"
           />
@@ -22,7 +21,6 @@
             v-model="form.email"
             :value="form.email"
             :error="errors?.email"
-            class="mt-10"
             label="Email"
             type="email"
           />
@@ -33,7 +31,6 @@
             v-model="form.password"
             :value="form.password"
             :error="errors?.password"
-            class="mt-10"
             label="password"
             type="password"
           />
@@ -44,9 +41,19 @@
             v-model="form.password_confirmation"
             :value="form.password_confirmation"
             :error="errors?.password_confirmation"
-            class="mt-10"
             label="Confirm password"
             type="password"
+          />
+        </div>
+        <div class="sm:col-span-3">
+          <v-select
+            id="roles"
+            :options="roles"
+            option-value="name"
+            option-text="name"
+            v-model="form.roles"
+            :multiple="true"
+            label="Roles"
           />
         </div>
       </div>
@@ -58,6 +65,11 @@
 definePageMeta({ middleware: ["auth"] });
 const layout = "auth";
 const { form, store, errors } = useUser();
+const { fetchRoles, roles } = useRole();
+
+onMounted(async () => {
+  await fetchRoles();
+});
 
 const submit = async () => {
   await store(form);
