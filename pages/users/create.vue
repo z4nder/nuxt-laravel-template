@@ -49,7 +49,7 @@
           <v-select
             id="roles"
             :options="roles"
-            option-value="name"
+            option-value="id"
             option-text="name"
             v-model="form.roles"
             :multiple="true"

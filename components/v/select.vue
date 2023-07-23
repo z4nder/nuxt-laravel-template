@@ -13,7 +13,9 @@
         class="relative w-full cursor-default rounded-md bg-white py-1.5 pl-3 pr-10 text-left text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-600 sm:text-sm sm:leading-6"
       >
         <span class="block truncate" v-if="props.modelValue.length >= 1">
-          {{ props.modelValue.map((item) => item).join(", ") }}</span
+          {{
+            props.modelValue.map((item) => item[props.optionText]).join(", ")
+          }}</span
         >
         <span class="block truncate" v-else> Select values</span>
         <span
@@ -35,7 +37,7 @@
             as="template"
             v-for="option in props.options"
             :key="option[props.optionValue]"
-            :value="option[props.optionValue]"
+            :value="option"
             v-slot="{ active, selected }"
           >
             <li
@@ -71,6 +73,8 @@
 </template>
 
 <script setup lang="ts">
+// TOOD
+// Colocar um reduce como option
 import {
   Listbox,
   ListboxButton,
