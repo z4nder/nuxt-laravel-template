@@ -34,6 +34,7 @@ type Paginate<T> = {
 type UserDto = {
   name: string;
   email: string;
+  roles: Array<number>;
   password: string;
   password_confirmation: string;
 };
@@ -53,6 +54,7 @@ export const useUser = () => {
   const form = reactive<UserDto>({
     name: "",
     email: "",
+    roles: [],
     password: "",
     password_confirmation: "",
   });

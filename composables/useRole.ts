@@ -14,7 +14,6 @@ export const useRole = () => {
       const response = await myApiFetch<Array<Role>>(`/roles`, {
         method: "GET",
       });
-      console.log(response);
       roles.value = response;
     } catch (error: any) {}
   }
