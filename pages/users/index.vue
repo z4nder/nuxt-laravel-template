@@ -46,20 +46,20 @@
             <v-td>
               <span
                 v-for="role in user.roles"
-                :key="role"
+                :key="role.id"
                 class="inline-flex items-center rounded-md bg-green-500/10 px-2 py-1 text-xs font-medium text-green-400 ring-1 ring-inset ring-green-500/20"
               >
-                {{ role }}</span
+                {{ role.name }}</span
               >
             </v-td>
             <v-td>
               <div class="flex gap-2">
-                <a
-                  href="#"
+                <router-link
+                  :to="`/users/${user.id}`"
                   class="bg-secondary-500 hover:bg-secondary-700 p-2 rounded-md"
                 >
-                  <PencilIcon class="h-5 w-5 text-white" aria-hidden="true"
-                /></a>
+                  <PencilIcon class="h-5 w-5 text-white" aria-hidden="true" />
+                </router-link>
                 <a href="#" class="bg-red-500 hover:bg-red-700 p-2 rounded-md">
                   <TrashIcon
                     class="h-5 w-5 text-white bg-text-500 hover:bg-text-700"

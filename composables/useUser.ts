@@ -1,10 +1,18 @@
+type Role = {
+  id: number;
+  created_at: string;
+  guard_name: string;
+  name: string;
+  updated_at: string;
+};
+
 type User = {
   id: number;
   name: string;
   email: string;
-  roles: Array<string>;
   created_at: string;
   updated_at: string;
+  roles: Array<Role>;
 };
 
 type Pagination = {
@@ -77,7 +85,21 @@ export const useUser = () => {
     }
   }
 
-  async function show() {}
+  async function show(id: number) {
+    try {
+      const response = await myApiFetch<User>(`/users/${id}`, {
+        method: "GET",
+      });
+      user.value = response;
+      setForm(response);
+    } catch (error: any) {
+      if (error.response?.status === 422) {
+        errors.value = errorFormat(error.response._data.errors);
+      } else if (error.response.status === 401) {
+        errors.value = { general: error.response._data.message };
+      }
+    }
+  }
 
   async function store(payload: UserDto) {
     try {
@@ -96,6 +118,13 @@ export const useUser = () => {
   }
 
   async function destory() {}
+
+  function setForm(user: User) {
+    form.name = user.name;
+    form.email = user.email;
+    const roleIds: Array<number> = user.roles.map((role) => role.id);
+    form.roles = roleIds;
+  }
 
   return {
     pagination,

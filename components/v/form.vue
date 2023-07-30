@@ -27,7 +27,7 @@
               <div
                 class="flex items-center justify-end gap-x-6 border-t border-gray-900/10 px-4 py-4 sm:px-8"
               >
-                <v-button type="submit"> Criar </v-button>
+                <v-button type="submit"> {{ props.action }} </v-button>
               </div>
             </form>
           </div>
@@ -39,4 +39,10 @@
 
 <script setup lang="ts">
 const emit = defineEmits(["onSubmit"]);
+const props = defineProps({
+  action: {
+    type: String,
+    default: "Criar",
+  },
+});
 </script>
