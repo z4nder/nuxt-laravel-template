@@ -60,7 +60,11 @@
                 >
                   <PencilIcon class="h-5 w-5 text-white" aria-hidden="true" />
                 </router-link>
-                <a href="#" class="bg-red-500 hover:bg-red-700 p-2 rounded-md">
+                <a
+                  href="#"
+                  class="bg-red-500 hover:bg-red-700 p-2 rounded-md"
+                  @click="openDelete(user)"
+                >
                   <TrashIcon
                     class="h-5 w-5 text-white bg-text-500 hover:bg-text-700"
                     aria-hidden="true"
@@ -71,6 +75,17 @@
         </template>
       </v-table>
     </div>
+    <v-modal
+      title="Remove user"
+      :open="showDeleteConfirm"
+      @onClose="showDeleteConfirm = false"
+    >
+      <user-delete
+        :user="selectedUser"
+        @onDelete="onDeleteUser"
+        @onCancel="showDeleteConfirm = false"
+      />
+    </v-modal>
   </NuxtLayout>
 </template>
 
@@ -82,9 +97,22 @@ definePageMeta({ middleware: ["auth"] });
 const layout = "auth";
 const { fetchUsers, users, pagination } = useUser();
 
+const showDeleteConfirm = ref(false);
+const selectedUser = ref();
+
 onMounted(async () => {
   await fetchUsers();
 });
+
+const openDelete = (user) => {
+  selectedUser.value = user;
+  showDeleteConfirm.value = true;
+};
+
+const onDeleteUser = async () => {
+  await fetchUsers();
+  showDeleteConfirm.value = false;
+};
 
 const changePage = async (page: number) => {
   if (page > pagination.value.lastPage || page < pagination.value.firstPage) {

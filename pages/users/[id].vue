@@ -44,17 +44,16 @@
 <script setup lang="ts">
 definePageMeta({ middleware: ["auth"] });
 const layout = "auth";
-const { user, form, show, errors } = useUser();
+const { update, form, show, errors } = useUser();
 const { fetchRoles, roles } = useRole();
 const route = useRoute();
 
 onMounted(async () => {
   await show(route.params.id);
   await fetchRoles();
-  console.log(form);
 });
 
 const submit = async () => {
-  await store(form);
+  await update(form);
 };
 </script>

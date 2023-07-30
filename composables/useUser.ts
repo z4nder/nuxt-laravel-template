@@ -1,3 +1,4 @@
+import { useToast } from "vue-toast-notification";
 type Role = {
   id: number;
   created_at: string;
@@ -52,6 +53,10 @@ export const useUser = () => {
   const users = ref<Array<User> | null>(null);
   const user = ref<User | null>(null);
   const errors = ref({});
+  const toast = useToast({
+    position: "top-right",
+  });
+
   const pagination = ref<Pagination>({
     page: 1,
     firstPage: 1,
@@ -108,6 +113,7 @@ export const useUser = () => {
         body: payload,
       });
       await router.push("/users");
+      toast.success("Created with success");
     } catch (error: any) {
       if (error.response?.status === 422) {
         errors.value = errorFormat(error.response._data.errors);
@@ -117,7 +123,33 @@ export const useUser = () => {
     }
   }
 
-  async function destory() {}
+  async function update(payload: UserDto) {
+    try {
+      await myApiFetch(`/users/${user.value.id}`, {
+        method: "PUT",
+        body: payload,
+      });
+      toast.success("Updated with success");
+      await router.push("/users");
+    } catch (error: any) {
+      if (error.response?.status === 422) {
+        errors.value = errorFormat(error.response._data.errors);
+      } else if (error.response.status === 401) {
+        errors.value = { general: error.response._data.message };
+      }
+    }
+  }
+
+  async function destory(id) {
+    try {
+      await myApiFetch(`/users/${id}`, {
+        method: "DELETE",
+      });
+      toast.success("Deleted with success");
+    } catch (error: any) {
+      console.log("ERROR: ", error);
+    }
+  }
 
   function setForm(user: User) {
     form.name = user.name;
@@ -136,5 +168,6 @@ export const useUser = () => {
     show,
     store,
     destory,
+    update,
   };
 };

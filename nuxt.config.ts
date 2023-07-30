@@ -21,7 +21,12 @@ export default defineNuxtConfig({
           rel: "stylesheet",
           href: "https://fonts.googleapis.com/css2?family=DM+Sans&family=Nunito:wght@200;400;600&display=swap",
         },
+        {
+          rel: "stylesheet",
+          href: "vue-toast-notification/dist/theme-default.css",
+        },
       ],
     },
   },
+  css: ["vue-toast-notification/dist/theme-sugar.css"],
 });
