@@ -5,6 +5,8 @@ type User = {
   name: string;
   email: string;
   email_verified_at: string;
+  roles: Array<string>;
+  permissions: Array<string>;
   created_at: string;
   updated_at: string;
 };

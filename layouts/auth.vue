@@ -138,7 +138,10 @@
           </div>
           <nav class="mt-5 flex-1 px-2 space-y-1">
             <router-link
-              v-for="item in navigation"
+              v-for="item in permissions.filterNavigation(
+                navigation,
+                userStore.user.permissions
+              )"
               :key="item.name"
               :to="item.href"
               :class="{
@@ -239,21 +242,25 @@ const navigation = [
     name: "Dashboard",
     href: "/dashboard",
     icon: ChartPieIcon,
+    permissions: [],
   },
   {
     name: "Users",
     href: "/users",
     icon: UserCircleIcon,
+    permissions: ["users-list"],
   },
   {
     name: "Spend",
     href: "/spends",
     icon: WalletIcon,
+    permissions: ["spends-list"],
   },
   {
     name: "Tag",
     href: "/tags",
     icon: ChartPieIcon,
+    permissions: ["tags-list"],
   },
 ];
 const sidebarOpen = ref(false);
